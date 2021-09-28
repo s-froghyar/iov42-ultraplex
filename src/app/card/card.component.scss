@@ -21,9 +21,10 @@
     .icon {
         width: 50%;
         margin: auto;
+        text-align: center;
     }
-    &.active {
-        background-color: red;
+    &.secondary {
+        background-color: gray;
     }
     &.disabled {
         cursor: no-drop;

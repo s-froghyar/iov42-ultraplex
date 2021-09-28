@@ -1,0 +1,18 @@
+.section {
+    width: 100%;
+    padding: 1rem;
+    background: grey;
+    .title {
+        // padding: 1rem;
+        border-bottom: 1px solid #c3c3c3;
+        font-size: 20px;
+        h2 {
+            margin-bottom: 0;
+        }
+    }
+    .content {
+        width: 100%;
+        max-height: 20vh;
+
+    }
+}

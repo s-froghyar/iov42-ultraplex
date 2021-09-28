@@ -13,16 +13,21 @@ export class CardComponent implements OnInit {
   get size(){
     return this._size;
   }
-  @Input() title!: string;
   @Input() set icon(v: CardIcon) {
     this.iconUrl = `../../assets/${v}.svg`;
   }
-  @Input() active!: boolean;
-  @Output() 
+  @Input() set title(v: string | null) {
+    this._title = v ?? 'No title found'; 
+  };
+  get title(): string {
+    return this._title;
+  }
+  @Input() secondary!: boolean;
 
 
   iconUrl = '';
   private _size: string = 'card medium';
+  private _title: string = '';
   constructor() { }
 
   ngOnInit(): void {

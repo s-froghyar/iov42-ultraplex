@@ -1,6 +1,6 @@
-import { Card } from "./interfaces/card.interface";
+import { ICard } from "./interfaces/card.interface";
 
-export const dashboardNavigationCards: Card[] = [
+export const dashboardNavigationCards: ICard[] = [
     {
         title: 'Cinemas',
         icon: 'cinema',
@@ -19,4 +19,12 @@ export const dashboardNavigationCards: Card[] = [
         size: 'large',
         selected: false
     },
-]
+];
+
+
+export const createItemCard: ICard = {
+    title: 'Add new',
+    icon: 'add',
+    size: 'medium',
+    selected: false
+}

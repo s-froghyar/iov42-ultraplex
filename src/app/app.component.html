@@ -1,4 +1,4 @@
-<div class="container">
+<div class="app-container">
   <div class="side-bar">
     <div class="logo">
       <img src="../assets/logo.svg" alt="iov42 ultraplex">
@@ -8,17 +8,31 @@
       <app-card *ngFor="let card of navCards"
         [title]="card.title"
         [icon]="card.icon"
-        [active]="card.selected"
         (click)="selectNavigation(card)"
         size="large"></app-card>
     </div>
   </div>
   <div class="main">
-    <div [ngSwitch]="selectedNavigation.icon">
-      <div *ngSwitchCase="'cinema'">output</div>
-      <div *ngSwitchCase="'movie'">output2</div>
-      <div *ngSwitchCase="'screening'">output3</div>
-      <div *ngSwitchDefault>output2</div>
-    </div>
+    <app-section title="Cinemas" [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
+      <app-card *ngFor="let card of cinemaCards"
+        [title]="card.title"
+        [icon]="card.icon"
+        (click)="selectNavigation(card)"
+        size="large"></app-card>
+    </app-section>
+    <app-section title="Movies" [cardType]="'movie'" (addEmitter)="openCreateModal($event)">
+      <app-card *ngFor="let card of movieCards"
+        [title]="card.title"
+        [icon]="card.icon"
+        (click)="selectNavigation(card)"
+        size="large"></app-card>
+    </app-section>
+    <app-section title="Cinemas" [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
+      <app-card *ngFor="let card of bookingCards"
+        [title]="card.title"
+        [icon]="card.icon"
+        (click)="selectNavigation(card)"
+        size="large"></app-card>
+    </app-section>
   </div>
 </div>
