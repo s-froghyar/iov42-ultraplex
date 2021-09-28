@@ -1,11 +1,24 @@
 <div class="container">
   <div class="side-bar">
     <div class="logo">
-      <img src="../assets/logo.svg" alt="">
+      <img src="../assets/logo.svg" alt="iov42 ultraplex">
     </div>
     <h1>Dashboard</h1>
+    <div class="nav">
+      <app-card *ngFor="let card of navCards"
+        [title]="card.title"
+        [icon]="card.icon"
+        [active]="card.selected"
+        (click)="selectNavigation(card)"
+        size="large"></app-card>
+    </div>
   </div>
   <div class="main">
-
+    <div [ngSwitch]="selectedNavigation.icon">
+      <div *ngSwitchCase="'cinema'">output</div>
+      <div *ngSwitchCase="'movie'">output2</div>
+      <div *ngSwitchCase="'screening'">output3</div>
+      <div *ngSwitchDefault>output2</div>
+    </div>
   </div>
 </div>

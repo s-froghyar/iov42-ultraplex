@@ -1,4 +1,6 @@
-<div [class]="'card ' + size">
-    <div class="icon">{{ faIcon }}</div>
+<div [class]="size" [class.active]="active">
+    <div class="icon">
+        <img [src]="iconUrl" alt="">
+    </div>
     <div class="title">{{ title }}</div>
 </div>

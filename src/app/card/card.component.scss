@@ -1,9 +1,30 @@
 .card {
     cursor: pointer;
+    display: block;
+    background: #333;
+    margin: 1rem;
+    border: 1px solid #fff;
+    padding: 1rem;
+    .title {
+        width: 100%;
+        text-align: center;
+        margin-top: 1rem;
+        margin-bottom: 1rem;
 
+    }
     &.small { }
     &.medium { }
-    &.large { }
+    &.large {
+        width: 300px;
+        border-radius: 35px;
+    }
+    .icon {
+        width: 50%;
+        margin: auto;
+    }
+    &.active {
+        background-color: red;
+    }
     &.disabled {
         cursor: no-drop;
     }

@@ -12,8 +12,14 @@
         padding: 1rem;
         display: flex;
         flex-direction: column;
-        
+
+        h1 {
+            border-bottom: 1px solid #c3c3c3;
+        }
 
         img { width: 100%;}
+    }
+    .main {
+        flex-grow: 1;
     }
 }

@@ -1,5 +1,5 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { CardSize } from '../core/interfaces/card.interface';
+import { Component, Input, OnInit, Output } from '@angular/core';
+import { CardIcon, CardSize } from '../core/interfaces/card.interface';
 
 @Component({
   selector: 'app-card',
@@ -7,10 +7,22 @@ import { CardSize } from '../core/interfaces/card.interface';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
-  @Input() size!: CardSize;
+  @Input() set size(v) {
+    this._size = `card ${v}`;
+  }
+  get size(){
+    return this._size;
+  }
   @Input() title!: string;
-  @Input() faIcon!: string;
+  @Input() set icon(v: CardIcon) {
+    this.iconUrl = `../../assets/${v}.svg`;
+  }
+  @Input() active!: boolean;
+  @Output() 
 
+
+  iconUrl = '';
+  private _size: string = 'card medium';
   constructor() { }
 
   ngOnInit(): void {
