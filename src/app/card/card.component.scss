@@ -1,0 +1,10 @@
+.card {
+    cursor: pointer;
+
+    &.small { }
+    &.medium { }
+    &.large { }
+    &.disabled {
+        cursor: no-drop;
+    }
+}

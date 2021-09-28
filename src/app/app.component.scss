@@ -1,0 +1,19 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: rgb(2,0,36);
+    background: linear-gradient(333deg, rgba(2,0,36,1) 0%, rgba(42,42,57,1) 18%, rgba(115,107,139,1) 100%);
+    // padding: 1rem;
+    display: flex;
+    .side-bar {
+        height: 100%;
+        width: 20%;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        
+
+        img { width: 100%;}
+    }
+}
