@@ -51,13 +51,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectCinema(card: ICard): void {
     const initialState: ModalOptions = {
       initialState: {
-        list: [
-          'Open a modal with component',
-          'Pass your data',
-          'Do something else',
-          '...'
-        ],
-        title: 'Modal with component'
+        cinemaName: 'Modal with component',
       }
     };
     this.bsModalRef = this.modal.show(FormComponent, initialState);
@@ -82,8 +76,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   }
   private initNavbarObservers(): void {
-    // const targets = document.getElementsByClassName('section-page')
-
     const options = {
       root: null, 
       rootMargin: '0px',
@@ -92,10 +84,10 @@ export class AppComponent implements OnInit, AfterViewInit {
     let observer = new IntersectionObserver((entries, observer) => {
       entries.forEach(entry => {
 
-        if(entry.isIntersecting){
+        if (entry.isIntersecting) {
           document.querySelector('.active')?.classList.remove('active');
-          const sectionId = entry.target.classList[0]; // identify which element is visible in the viewport at 50%
-          console.log(sectionId);
+          const sectionId = entry.target.classList[0];
+
           switch (sectionId) {
             case 'cinema-section':
               this.cinemaNavEl.nativeElement.classList.add('active');
@@ -106,11 +98,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             case 'booking-section':
               this.bookingNavEl.nativeElement.classList.add('active');
               break;
-            default:
-              break;
           }
-          // classList.add('active');
-          
         }
       });
     }, options);
