@@ -1,13 +1,24 @@
 .app-container {
     width: 100vw;
-    height: 100vh;
+    // height: 100vh;
     overflow: hidden;
-    background: rgb(2,0,36);
-    background: linear-gradient(333deg, rgba(2,0,36,1) 0%, rgba(42,42,57,1) 18%, rgba(115,107,139,1) 100%);
     display: flex;
+    flex-direction: row-reverse;
+    .bg {
+        width: 100vw;
+        height: 100vh;
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: -1;
+        background: rgb(2,0,36);
+        background: linear-gradient(333deg, rgba(2,0,36,1) 0%, rgba(42,42,57,1) 18%, rgba(115,107,139,1) 100%);        
+    }
     .side-bar {
+        position: fixed;
+        left: 0;
         height: 100%;
-        max-width: 30%;
+        max-width: 27%;
         padding: 1rem;
         display: flex;
         flex-direction: column;
@@ -15,18 +26,50 @@
         h1 {
             border-bottom: 1px solid #c3c3c3;
         }
+        .nav {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            .nav-item {
+                width: 100%;
+                margin-top: 2rem;
+                margin-bottom: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                cursor: pointer;
+                img {
+                    width: 50px;
+                }
+                span {
+                    color: white;
+                    font-size: 40px;
+                    margin-left: 1rem;
+                    width: 40%;
+                    text-align: center;
+                }
+                &.active span {
+                    text-decoration: underline;
+                }
+            }
+        }
 
         img { width: 100%;}
     }
     .main {
-        flex-grow: 1;
-        position: fixed;
+        width: 80%;
         display: flex;
         flex-direction: column;
         justify-content: space-evenly;
-        overflow: scroll;
-        & > * {
+        & > div {
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-evenly;
+            // margin-top: 2rem;
         }
     }
 }

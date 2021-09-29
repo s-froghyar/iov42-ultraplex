@@ -5,34 +5,47 @@
     </div>
     <h1>Dashboard</h1>
     <div class="nav">
-      <app-card *ngFor="let card of navCards"
-        [title]="card.title"
-        [icon]="card.icon"
-        (click)="selectNavigation(card)"
-        size="large"></app-card>
+      <div class="nav-item active" (click)="selectNavigation(cinema)" #cinemaNav>
+        <img src="../assets/cinema.svg" alt="">
+        <span>Cinemas</span>
+      </div>
+      <div class="nav-item" (click)="selectNavigation(movie)" #movieNav>
+        <img src="../assets/movie.svg" alt="">
+        <span>Movies</span>
+      </div>
+      <div class="nav-item" (click)="selectNavigation(booking)" #bookingNav>
+        <img src="../assets/screening.svg" alt="">
+        <span>Bookings</span>
+      </div>
     </div>
   </div>
   <div class="main">
-    <app-section title="Cinemas" [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
-      <app-card *ngFor="let card of cinemaCards"
-        [title]="card.title"
-        [icon]="card.icon"
-        (click)="selectNavigation(card)"
-        size="large"></app-card>
-    </app-section>
-    <app-section title="Movies" [cardType]="'movie'" (addEmitter)="openCreateModal($event)">
-      <app-card *ngFor="let card of movieCards"
-        [title]="card.title"
-        [icon]="card.icon"
-        (click)="selectNavigation(card)"
-        size="large"></app-card>
-    </app-section>
-    <app-section title="Cinemas" [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
-      <app-card *ngFor="let card of bookingCards"
-        [title]="card.title"
-        [icon]="card.icon"
-        (click)="selectNavigation(card)"
-        size="large"></app-card>
-    </app-section>
+    <div class="cinema-section" #cinema>
+      <app-section title="Cinemas" [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
+        <app-card *ngFor="let card of cinemaCards"
+          [title]="card.title"
+          [icon]="card.icon"
+          (click)="selectCinema(card)"
+          size="medium"></app-card>
+      </app-section>
+    </div>
+    <div class="movie-section" #movie>
+      <app-section title="Movies" [cardType]="'movie'" (addEmitter)="openCreateModal($event)">
+        <app-card *ngFor="let card of movieCards"
+          [title]="card.title"
+          [icon]="card.icon"
+          (click)="selectMovie(card)"
+          size="medium"></app-card>
+      </app-section>
+    </div>
+    <div class="booking-section" #booking>
+      <app-section title="Bookings" [cardType]="'booking'" (addEmitter)="openCreateModal($event)">
+        <app-card *ngFor="let card of bookingCards"
+          [title]="card.title"
+          [icon]="card.icon"
+          size="medium"></app-card>
+      </app-section>
+    </div>
   </div>
+  <div class="bg"></div>
 </div>

@@ -1,6 +1,12 @@
+:host {
+    display: inline-block;
+}
+
 .card {
     cursor: pointer;
-    display: block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     background: #333;
     margin: 1rem;
     border: 1px solid #fff;
@@ -13,14 +19,16 @@
 
     }
     &.small { }
-    &.medium { }
+    &.medium {
+        width: 200px;
+    }
     &.large {
         width: 300px;
         border-radius: 35px;
     }
-    .icon {
-        width: 50%;
-        margin: auto;
+    img {
+        width: 30%;
+        // margin: auto;
         text-align: center;
     }
     &.secondary {
