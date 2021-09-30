@@ -3,6 +3,7 @@ import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, first } from 'rxjs/operators';
 import { CardFactory } from './core/card';
 import { CardIcon, ICard } from './core/interfaces/card.interface';
+import { CinemaScreen, CinemaScreening } from './core/interfaces/cinema.interface';
 import { FormComponent } from './form/form.component';
 import { CinemaService } from './services/cinema.service';
 
@@ -24,11 +25,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   title = 'ultraplex';
   cinemaCards: ICard[] = [];
+  screenCards: ICard[] = [];
+  screeningCards: ICard[] = []
   movieCards: ICard[] = [];
   bookingCards: ICard[] = [];
 
-  isLoading = true;
 
+  selectedCinema!: ICard;
+
+  isLoading = true;
   constructor(
     private readonly service: CinemaService,
     private readonly modal: BsModalService  
@@ -44,11 +49,36 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.initNavbarObservers();
   }
 
-
   selectNavigation($element: HTMLElement): void {
     $element.scrollIntoView(true);
   }
   selectCinema(card: ICard): void {
+    this.selectedCinema = Object.assign({}, card);
+    this.service.getScreensAndScreenings(this.selectedCinema)
+      .pipe(first())
+      .subscribe( ([screens, screenings]) => {
+        console.log([screens, screenings]);
+        
+        this.screenCards = screens.map((s: CinemaScreen) => { return { title: s.name, id: s.id, icon: 'screen', size: 'medium', selected: false };});
+        this.screeningCards = screenings.map((s: CinemaScreening) => { 
+          const selectedMovieInd = this.movieCards.findIndex(m => m.id === s.movieId);
+
+          return { 
+            title: selectedMovieInd !== -1 
+              ? `${this.movieCards[selectedMovieInd].title} starting at ${s.startTime}`
+              : `Movie ${s.movieId} starting at ${s.startTime}`, 
+            id: `${s.movieId}-${s.startTime}`,
+            icon: 'screening',
+            size: 'medium',
+            selected: false
+          };
+        });
+      })
+  }
+  selectScreen(card: ICard): void {
+
+  }
+  selectMovie(card: ICard): void {
     const initialState: ModalOptions = {
       initialState: {
         cinemaName: 'Modal with component',
@@ -56,7 +86,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     };
     this.bsModalRef = this.modal.show(FormComponent, initialState);
   }
-  selectMovie(card: ICard): void {}
   openCreateModal(itemType: CardIcon): void {
     console.log(itemType);
     

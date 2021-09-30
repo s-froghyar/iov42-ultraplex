@@ -6,4 +6,5 @@ export interface ICard {
     size: CardSize;
     icon: CardIcon;
     selected: boolean;
+    id: number | string;
 }

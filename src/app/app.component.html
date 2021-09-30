@@ -28,6 +28,27 @@
           (click)="selectCinema(card)"
           size="medium"></app-card>
       </app-section>
+      <div class="cinema-specific" *ngIf="selectedCinema">
+        <app-section title="Screens" [cardType]="'screen'" 
+        (addEmitter)="openCreateModal($event)" *ngIf="screenCards.length > 0">
+          <app-card *ngFor="let card of screenCards"
+            [title]="card.title"
+            [icon]="card.icon"
+            (click)="selectScreen(card)"
+            size="medium"></app-card>
+        </app-section>
+        <app-section title="Screens" [cardType]="'screening'" 
+        (addEmitter)="openCreateModal($event)" *ngIf="screenCards.length > 0">
+          <app-card *ngFor="let card of screeningCards"
+            [title]="card.title"
+            [icon]="card.icon"
+            (click)="selectScreen(card)"
+            size="medium"></app-card>
+        </app-section>
+      </div>
+      <div class="message" *ngIf="selectedCinema && screenCards.length === 0">
+        Sorry the selected cinema has no available screens. Please choose another cinema!
+      </div>
     </div>
     <div class="movie-section" #movie>
       <app-section title="Movies" [cardType]="'movie'" (addEmitter)="openCreateModal($event)">

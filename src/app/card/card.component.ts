@@ -23,7 +23,8 @@ export class CardComponent implements OnInit {
     return this._title;
   }
   @Input() secondary!: boolean;
-
+  @Input() active!: boolean;
+  
 
   iconUrl = '';
   private _size: string = 'card medium';

@@ -18,6 +18,12 @@ export interface CinemaScreen {
     name: string;
 }
 
+export interface CinemaScreening {
+    movieId: any;
+    startTime: any;
+}
+
+
 export interface Cinema {
     id: number;
     name: string | null;

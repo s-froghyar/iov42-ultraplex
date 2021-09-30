@@ -32,7 +32,8 @@ export class CardFactory {
                         icon: cardType,
                         title: c.name ?? null,
                         size: 'medium',
-                        selected: false
+                        selected: false,
+                        id: c.id
                     }
                 })
             case 'movie':
@@ -41,7 +42,8 @@ export class CardFactory {
                         icon: cardType,
                         title: m.name ?? null,
                         size: 'medium',
-                        selected: false
+                        selected: false,
+                        id: m.id
                     }
                 })
             case 'booking':
@@ -50,7 +52,8 @@ export class CardFactory {
                         icon: cardType,
                         title: b.id.toString() ?? null,
                         size: 'medium',
-                        selected: false
+                        selected: false,
+                        id: b.id
                     }
                 })
             default: 

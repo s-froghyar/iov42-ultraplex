@@ -1,5 +1,10 @@
+@import '_colors';
+
 :host {
     display: inline-block;
+    width: 20%;
+    margin: 1rem;
+    min-width: 100px;
 }
 
 .card {
@@ -8,9 +13,9 @@
     justify-content: center;
     align-items: center;
     background: #333;
-    margin: 1rem;
     border: 1px solid #fff;
-    padding: 1rem;
+    width: 100%;
+    color: $baseWhite;
     .title {
         width: 100%;
         text-align: center;
@@ -18,18 +23,23 @@
         margin-bottom: 1rem;
 
     }
-    &.small { }
+    &.small { 
+        padding: 0.25rem;
+    }
     &.medium {
-        width: 200px;
+        padding: 0.5rem;
     }
     &.large {
-        width: 300px;
+        padding: 1rem;
         border-radius: 35px;
     }
     img {
         width: 30%;
         // margin: auto;
         text-align: center;
+    }
+    &.active {
+        background: green;
     }
     &.secondary {
         background-color: gray;
