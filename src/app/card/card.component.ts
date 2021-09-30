@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output } from '@angular/core';
+import { Component, HostBinding, Input, OnInit, Output } from '@angular/core';
 import { CardIcon, CardSize } from '../core/interfaces/card.interface';
 
 @Component({
@@ -7,8 +7,28 @@ import { CardIcon, CardSize } from '../core/interfaces/card.interface';
   styleUrls: ['./card.component.scss']
 })
 export class CardComponent implements OnInit {
+  @HostBinding('class.small') isSmallClass: boolean = false;
+  @HostBinding('class.medium') isMediumClass: boolean = false;
+  @HostBinding('class.large') isLargeClass: boolean = false;
   @Input() set size(v) {
-    this._size = `card ${v}`;
+    this._size = v;
+    switch (v) {
+      case 'small':
+        this.isSmallClass = true;
+        this.isMediumClass = false;
+        this.isLargeClass = false;
+        break;
+      case 'medium':
+        this.isSmallClass = false;
+        this.isMediumClass = true;
+        this.isLargeClass = false;
+        break;
+      case 'large':
+        this.isSmallClass = false;
+        this.isMediumClass = false;
+        this.isLargeClass = true;
+        break;
+    }
   }
   get size(){
     return this._size;
@@ -27,11 +47,12 @@ export class CardComponent implements OnInit {
   
 
   iconUrl = '';
-  private _size: string = 'card medium';
+  private _size: string = 'medium';
   private _title: string = '';
   constructor() { }
 
   ngOnInit(): void {
+
   }
 
 }

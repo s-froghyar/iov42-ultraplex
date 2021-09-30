@@ -7,8 +7,9 @@
               [title]="createItem.title"
               [secondary]="true"
               [icon]="createItem.icon"
-              [size]="createItem.size"
+              [size]="cardSize"
               (click)="addNew()"></app-card>
         <ng-content></ng-content>
     </div>
+    <div class="bg"></div>
 </div>

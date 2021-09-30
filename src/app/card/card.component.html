@@ -1,4 +1,7 @@
-<div [class]="size" [class.secondary]="secondary" [class.active]="active">
+<div class="item-card" [class.secondary]="secondary" [class.active]="active"
+    [matTooltip]="title"
+    matTooltipPosition="above">
     <img [src]="iconUrl">
     <div class="title">{{ title }}</div>
+    <div class="bg"></div>
 </div>

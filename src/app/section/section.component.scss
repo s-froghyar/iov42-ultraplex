@@ -1,3 +1,6 @@
+@import '_colors';
+
+
 :host {
     display: flex;
     justify-content: center;
@@ -7,13 +10,17 @@
 
 .section {
     width: 100%;
-    padding: 1rem;
-    background: grey;
+    position: relative;
+    padding: 0.5rem;
+    margin: 1rem;
     .title {
-        // padding: 1rem;
-        border-bottom: 1px solid #c3c3c3;
+        border-bottom: 1px solid $baseWhite;
+        color: $baseWhite;
         font-size: 20px;
         height: 50px;
+        position: relative;
+        z-index: 2;
+
         h2 {
             margin-bottom: 0;
         }
@@ -23,5 +30,19 @@
         max-height: calc(100% - 50px);
         text-overflow: ellipsis;
         overflow-y: scroll;
+        overflow-x: hidden;
+        position: relative;
+        z-index: 2;
+        text-align: center;
+    }
+    .bg {
+        position: absolute;
+        top: -0.5rem;
+        left: -0.5rem;
+        width: calc(100% + 1rem);
+        height: calc(100% + 1rem);
+        opacity: 0.6;
+        z-index: 1;
+        background: #313C48;
     }
 }

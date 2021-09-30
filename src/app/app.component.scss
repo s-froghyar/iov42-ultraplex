@@ -1,5 +1,5 @@
 @import '_colors';
-
+@import '_animations';
 
 .app-container {
     width: 100vw;
@@ -81,6 +81,14 @@
             .cinema-specific {
                 display: flex;
                 & > * {width: 100%;}
+            }
+            .spinner img {
+                width: 100px;
+                height: 100px;
+                animation-name: spin;
+                animation-duration: 1500ms;
+                animation-iteration-count: infinite;
+                animation-timing-function: linear; 
             }
             .message {
                 color: $baseWhite;

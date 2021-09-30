@@ -87,7 +87,7 @@ export class CinemaService {
         )
   }
   private getAllBookings(): Observable<Booking[]> {
-    return this.http.get<ResponseDto<Booking[]>>(`${this.baseUrl}/cinemas?size=100`)
+    return this.http.get<ResponseDto<Booking[]>>(`${this.baseUrl}/bookings?size=100`)
       .pipe(
         first(),
         map((res: ResponseDto<Booking[]>) => res.content )

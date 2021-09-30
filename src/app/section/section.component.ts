@@ -1,5 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { CardIcon, ICard } from '../core/interfaces/card.interface';
+import { CardIcon, CardSize, ICard } from '../core/interfaces/card.interface';
 export const createItemCard: ICard = {
   title: 'Add new',
   icon: 'add',
@@ -16,6 +16,7 @@ export const createItemCard: ICard = {
 export class SectionComponent implements OnInit {
   @Input() title!: string;
   @Input() cardType!: CardIcon;
+  @Input() cardSize!: CardSize;
   @Output() addEmitter: EventEmitter<CardIcon> = new EventEmitter<CardIcon>();
   createItem: ICard = createItemCard;
 

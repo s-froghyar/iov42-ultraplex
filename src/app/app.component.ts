@@ -34,12 +34,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   selectedCinema!: ICard;
 
   isLoading = true;
+  areScreensLoading = false;
   constructor(
     private readonly service: CinemaService,
     private readonly modal: BsModalService  
   ) {}
   ngOnInit(): void {
-    console.log('lmao');
     this.getAllData();
   }
   ngAfterViewInit(): void {
@@ -53,16 +53,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     $element.scrollIntoView(true);
   }
   selectCinema(card: ICard): void {
+    this.areScreensLoading = true;
     this.selectedCinema = Object.assign({}, card);
     this.service.getScreensAndScreenings(this.selectedCinema.id)
-      .pipe(first())
-      .subscribe( ([screens, screenings]) => {
-        console.log([screens, screenings]);
-        
+      .pipe(
+        first(),
+        finalize(() => this.areScreensLoading = false))
+      .subscribe( ([screens, screenings]) => {        
         this.screenCards = screens.map((s: CinemaScreen) => { return { title: s.name, id: s.id, icon: 'screen', size: 'medium', selected: false };});
         this.screeningCards = screenings.map((s: CinemaScreening) => { 
           const selectedMovieInd = this.movieCards.findIndex(m => m.id === s.movie.id);
-
           return { 
             title: selectedMovieInd !== -1 
               ? `${this.movieCards[selectedMovieInd].title} starting at ${s.start}`
@@ -112,9 +112,9 @@ export class AppComponent implements OnInit, AfterViewInit {
       )
       .subscribe(([c, m, b]) => {
         const fac = new CardFactory(c, m, b);
-        [this.cinemaCards, this.movieCards, this.bookingCards] = fac.generateAllCards();
-        // console.log([this.cinemaCards, this.movieCards, this.bookingCards]);
-        
+        [this.cinemaCards, this.movieCards, this.bookingCards] = fac.generateAllCards(); 
+        console.log([this.cinemaCards, this.movieCards, this.bookingCards]);
+               
       });
 
   }

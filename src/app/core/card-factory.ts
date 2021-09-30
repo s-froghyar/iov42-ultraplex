@@ -25,7 +25,7 @@ export class CardFactory {
                     return {
                         icon: cardType,
                         title: c.name ?? null,
-                        size: 'medium',
+                        size: 'large',
                         selected: false,
                         id: c.id
                     }
@@ -35,7 +35,7 @@ export class CardFactory {
                     return {
                         icon: cardType,
                         title: m.name ?? null,
-                        size: 'medium',
+                        size: 'large',
                         selected: false,
                         id: m.id
                     }
@@ -45,7 +45,7 @@ export class CardFactory {
                     return {
                         icon: cardType,
                         title: b.id.toString() ?? null,
-                        size: 'medium',
+                        size: 'large',
                         selected: false,
                         id: b.id
                     }
