@@ -1,0 +1,26 @@
+tab {
+    .title {
+        margin: 1rem;
+        height: 40px;
+        border-bottom: 1px solid #673ab7;
+        h3 {
+            font-size: 20px;
+        }
+    }
+    .form-area {
+        mat-form-field {
+            width: 100%;
+        }
+        & > div {
+            align-self: flex-end;
+        }
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+        margin-left: 1rem;
+        margin-right: 1rem;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+    }
+}

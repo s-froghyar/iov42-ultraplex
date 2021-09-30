@@ -54,20 +54,20 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   selectCinema(card: ICard): void {
     this.selectedCinema = Object.assign({}, card);
-    this.service.getScreensAndScreenings(this.selectedCinema)
+    this.service.getScreensAndScreenings(this.selectedCinema.id)
       .pipe(first())
       .subscribe( ([screens, screenings]) => {
         console.log([screens, screenings]);
         
         this.screenCards = screens.map((s: CinemaScreen) => { return { title: s.name, id: s.id, icon: 'screen', size: 'medium', selected: false };});
         this.screeningCards = screenings.map((s: CinemaScreening) => { 
-          const selectedMovieInd = this.movieCards.findIndex(m => m.id === s.movieId);
+          const selectedMovieInd = this.movieCards.findIndex(m => m.id === s.movie.id);
 
           return { 
             title: selectedMovieInd !== -1 
-              ? `${this.movieCards[selectedMovieInd].title} starting at ${s.startTime}`
-              : `Movie ${s.movieId} starting at ${s.startTime}`, 
-            id: `${s.movieId}-${s.startTime}`,
+              ? `${this.movieCards[selectedMovieInd].title} starting at ${s.start}`
+              : `Movie ${s.movie.id} starting at ${s.start}`, 
+            id: `${s.movie.id}-${s.start}`,
             icon: 'screening',
             size: 'medium',
             selected: false
@@ -87,7 +87,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.bsModalRef = this.modal.show(FormComponent, initialState);
   }
   openCreateModal(itemType: CardIcon): void {
-    console.log(itemType);
+    const initialState: ModalOptions = {
+      class: 'modal-lg',
+      initialState: {
+        options: {
+          createType: itemType
+        },
+        cinemas: this.cinemaCards,
+        movies: this.movieCards
+      }
+    };
+    this.bsModalRef = this.modal.show(FormComponent, initialState);
     
   }
   private getAllData(): void {
@@ -99,7 +109,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       .subscribe(([c, m, b]) => {
         const fac = new CardFactory(c, m, b);
         [this.cinemaCards, this.movieCards, this.bookingCards] = fac.generateAllCards();
-        console.log([this.cinemaCards, this.movieCards, this.bookingCards]);
+        // console.log([this.cinemaCards, this.movieCards, this.bookingCards]);
         
       });
 

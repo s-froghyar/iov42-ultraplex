@@ -9,6 +9,10 @@ html, body {
     scroll-behavior: smooth;
 }
 
+.cdk-global-overlay-wrapper, .cdk-overlay-container {
+    z-index: 99999 !important;
+ }
+
 /* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 

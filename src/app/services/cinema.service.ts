@@ -21,45 +21,45 @@ export class CinemaService {
     ]).pipe(first())
   }
   
-  getScreensAndScreenings(selectedCinema: ICard): Observable<[CinemaScreen[], CinemaScreening[]]> {
+  getScreensAndScreenings(selectedCinemaId: number | string): Observable<[CinemaScreen[], CinemaScreening[]]> {
     return forkJoin([
-      this.getScreens(selectedCinema.id),
-      this.getScreenings(selectedCinema.id)
+      this.getScreens(selectedCinemaId),
+      this.getScreenings(selectedCinemaId)
     ]).pipe(first())
   }
+  private getScreenings(cinemaId: number | string): Observable<CinemaScreening[]> {
+    return this.http.get<ResponseDto<CinemaScreening[]>>(`${this.baseUrl}/cinemas/${cinemaId}/screenings?size=100`)
+    .pipe(
+      first(),
+      map((res: ResponseDto<CinemaScreening[]>) => res.content)
+    )
+  }
+  private getScreens(cinemaId: number | string): Observable<CinemaScreen[]> {
+    return this.http.get<ResponseDto<CinemaScreen[]>>(`${this.baseUrl}/cinemas/${cinemaId}/screens?size=100`)
+    .pipe(
+      first(),
+      map((res: ResponseDto<CinemaScreen[]>) => res.content)
+    )
+  }
   private getAllCinemas(): Observable<Cinema[]> {
-    return this.http.get<ResponseDto<Cinema[]>>(`${this.baseUrl}/cinemas`)
+    return this.http.get<ResponseDto<Cinema[]>>(`${this.baseUrl}/cinemas?size=100`)
       .pipe(
         first(),
         map((res: ResponseDto<Cinema[]>) => res.content )
         )
   }
   private getAllMovies(): Observable<Movie[]> {
-    return this.http.get<ResponseDto<Movie[]>>(`${this.baseUrl}/cinemas`)
+    return this.http.get<ResponseDto<Movie[]>>(`${this.baseUrl}/movies?size=100`)
       .pipe(
         first(),
         map((res: ResponseDto<Movie[]>) => res.content )
         )
   }
   private getAllBookings(): Observable<Booking[]> {
-    return this.http.get<ResponseDto<Booking[]>>(`${this.baseUrl}/cinemas`)
+    return this.http.get<ResponseDto<Booking[]>>(`${this.baseUrl}/cinemas?size=100`)
       .pipe(
         first(),
         map((res: ResponseDto<Booking[]>) => res.content )
         )
-  }
-  private getScreens(cinemaId: number | string): Observable<CinemaScreen[]> {
-    return this.http.get<ResponseDto<CinemaScreen[]>>(`${this.baseUrl}/cinemas/${cinemaId}/screens`)
-    .pipe(
-      first(),
-      map((res: ResponseDto<CinemaScreen[]>) => res.content)
-    )
-  }
-  private getScreenings(cinemaId: number | string): Observable<CinemaScreening[]> {
-    return this.http.get<ResponseDto<CinemaScreening[]>>(`${this.baseUrl}/cinemas/${cinemaId}/screenings`)
-    .pipe(
-      first(),
-      map((res: ResponseDto<CinemaScreening[]>) => res.content)
-    )
   }
 }
