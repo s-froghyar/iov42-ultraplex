@@ -2,12 +2,6 @@ import { CardIcon, ICard, CardSize } from "./interfaces/card.interface";
 import { Booking, Cinema, Movie } from "./interfaces/cinema.interface";
 
 export class CardFactory {
-    // title!: string;
-    // size!: CardSize;
-    // icon!: CardIcon;
-    // selected!: boolean;
-
-
     cinemas: Cinema[] = [];
     movies: Movie[] = [];
     bookings: Booking[] = [];

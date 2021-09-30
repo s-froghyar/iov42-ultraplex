@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { forkJoin, Observable } from 'rxjs';
+import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { first, map } from 'rxjs/operators';
+import { catchError, first, map } from 'rxjs/operators';
 import { Booking, Cinema, CinemaScreen, CinemaScreening, Movie, ResponseDto } from '../core/interfaces/cinema.interface';
 import { ICard } from '../core/interfaces/card.interface';
 
@@ -26,6 +26,37 @@ export class CinemaService {
       this.getScreens(selectedCinemaId),
       this.getScreenings(selectedCinemaId)
     ]).pipe(first())
+  }
+  createCinema(name: string): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/cinemas`, {name})
+      .pipe(catchError(err => { console.warn(err); return of('') }))
+  }
+  createScreen(name: string, cinemaId: number | string): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/cinemas/${cinemaId}/screens`, {name})
+      .pipe(catchError(err => { console.warn(err); return of('') }))
+  }
+  createScreening(
+    cinemaId: number | string,
+    screenId: number | string,
+    movieId: number | string,
+    startTime: Date
+    ): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/cinemas/${cinemaId}/screens/${screenId}/screenings`, {movieId, startTime})
+      .pipe(catchError(err => { console.warn(err); return of('') }))
+  }
+  createBooking(screeningId: number | string, seat: number): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/bookings`, {screeningId, seat})
+      .pipe(catchError(err => { console.warn(err); return of('') }))
+  }
+  createMovie(name: string, runtime: number): Observable<any> {
+    return this.http
+      .put(`${this.baseUrl}/movies`, {name, runtime})
+      .pipe(catchError(err => { console.warn(err); return of('') }))
+
   }
   private getScreenings(cinemaId: number | string): Observable<CinemaScreening[]> {
     return this.http.get<ResponseDto<CinemaScreening[]>>(`${this.baseUrl}/cinemas/${cinemaId}/screenings?size=100`)

@@ -3,7 +3,6 @@
 
 .app-container {
     width: 100vw;
-    // height: 100vh;
     overflow: hidden;
     display: flex;
     flex-direction: row-reverse;
@@ -50,9 +49,8 @@
                 }
                 span {
                     color: white;
-                    font-size: 40px;
-                    margin-left: 1rem;
-                    width: 40%;
+                    font-size: 25px;
+                    width: 70%;
                     text-align: center;
                 }
                 &.active span {
@@ -76,7 +74,6 @@
             align-items: center;
             justify-content: space-evenly;
             padding: 1rem;
-            // margin-top: 2rem;
             width: 100%;
         }
         .cinema-section {

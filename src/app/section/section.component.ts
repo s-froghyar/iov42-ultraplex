@@ -1,6 +1,12 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CardIcon, ICard } from '../core/interfaces/card.interface';
-import { createItemCard } from '../core/nav-cards';
+export const createItemCard: ICard = {
+  title: 'Add new',
+  icon: 'add',
+  size: 'medium',
+  selected: false,
+  id: -1
+}
 
 @Component({
   selector: 'app-section',

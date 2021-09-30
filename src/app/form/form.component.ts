@@ -1,10 +1,11 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { first } from 'rxjs/operators';
 import { ICard } from '../core/interfaces/card.interface';
 import { CinemaScreen, CinemaScreening } from '../core/interfaces/cinema.interface';
-import { FormOptions } from '../core/interfaces/form.interface';
+import { FormOptions, FormType } from '../core/interfaces/form.interface';
 import { CinemaService } from '../services/cinema.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { CinemaService } from '../services/cinema.service';
   templateUrl: './form.component.html',
   styleUrls: ['./form.component.scss'],
 })
-export class FormComponent implements OnInit, AfterViewInit {
+export class FormComponent implements AfterViewInit {
   @ViewChild('staticTabs', { static: false }) tabs!: TabsetComponent;
 
   options?: FormOptions;
@@ -30,10 +31,11 @@ export class FormComponent implements OnInit, AfterViewInit {
   selectedScreeningId = new FormControl(-1);
   selectedStartTime = new FormControl('');
 
-  constructor(private readonly service: CinemaService) {}
+  selectedTab!: FormType;
+  constructor(
+    private readonly service: CinemaService,
+    private readonly modalRef: BsModalRef) {}
 
-  ngOnInit(): void {
-  }
   ngAfterViewInit(): void {
     this.selectInitialTab();
   }
@@ -47,9 +49,42 @@ export class FormComponent implements OnInit, AfterViewInit {
       selectedScreenId: this.selectedScreenId.value,
       selectedMovieId: this.selectedMovieId.value,
       selectedScreeningId: this.selectedScreeningId.value,
-      selectedStartTime: this.selectedStartTime.value
+      selectedStartTime: this.selectedStartTime.value,
+      tab: this.selectedTab
     }
-    console.log(formElements);
+    
+    switch (this.selectedTab) {
+      case 'cinema':
+        this.service.createCinema(formElements.name).pipe(first())
+          .subscribe(_ => this.modalRef.hide())
+        break;
+      case 'screen':
+        this.service.createScreen(formElements.name, formElements.selectedCinemaId).pipe(first())
+          .subscribe(_ => this.modalRef.hide())
+        break;
+      case 'movie':
+        this.service.createMovie(formElements.name, formElements.runtime).pipe(first())
+          .subscribe(_ => this.modalRef.hide())
+        break;
+
+      case 'screening':
+        this.service.createScreening(
+          formElements.selectedCinemaId,
+          formElements.selectedScreenId,
+          formElements.selectedMovieId,
+          formElements.selectedStartTime
+        ).pipe(first())
+          .subscribe(_ => this.modalRef.hide())
+        break;
+
+      case 'booking':
+        this.service.createBooking(
+          formElements.selectedScreeningId,
+          formElements.seats
+        ).pipe(first())
+          .subscribe(_ => this.modalRef.hide())
+        break;
+    }
   }
   updateScreensAndScreenings(): void {    
     this.service.getScreensAndScreenings(this.selectedCinemaId.value).pipe(first())
@@ -58,11 +93,16 @@ export class FormComponent implements OnInit, AfterViewInit {
         this.screenings = cScreenings;
       })
   }
+  selectTab(tab: FormType): void {
+    this.selectedTab = tab
+
+  }
   private selectInitialTab(): void {
-    const orderedTabs = ['cinema', 'screen', 'screening', 'movie', 'booking'];
+    const orderedTabs: FormType[] = ['cinema', 'screen', 'screening', 'movie', 'booking'];
     const ind = orderedTabs.findIndex(t => t === this.options?.createType);
     if (ind !== -1) {
       this.tabs.tabs[ind].active = true;
-    }    
+      this.selectedTab = orderedTabs[ind];
+    }
   }
 }

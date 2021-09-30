@@ -1,6 +1,6 @@
 <div class="form-container">
     <tabset  [justified]="true" #staticTabs>
-        <tab heading="Cinema">
+        <tab heading="Cinema" (selectTab)="selectTab('cinema')">
             <div class="title">
                 <h3>Create a new cinema!</h3>
             </div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Screen">
+        <tab heading="Screen" (selectTab)="selectTab('screen')">
             <div class="title">
                 <h3>Create a new screen!</h3>
             </div>
@@ -36,7 +36,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Screening">
+        <tab heading="Screening" (selectTab)="selectTab('screening')">
             <div class="title">
                 <h3>Create a new screening!</h3>
             </div>
@@ -74,7 +74,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Movie">
+        <tab heading="Movie" (selectTab)="selectTab('movie')">
             <div class="title">
                 <h3>Create a new movie!</h3>
             </div>
@@ -92,7 +92,7 @@
                 </div>
             </div>
         </tab>
-        <tab heading="Booking">
+        <tab heading="Booking" (selectTab)="selectTab('booking')">
             <div class="title">
                 <h3>Create a new booking!</h3>
             </div>

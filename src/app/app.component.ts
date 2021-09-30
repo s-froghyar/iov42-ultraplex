@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, first } from 'rxjs/operators';
-import { CardFactory } from './core/card';
+import { CardFactory } from './core/card-factory';
 import { CardIcon, ICard } from './core/interfaces/card.interface';
 import { CinemaScreen, CinemaScreening } from './core/interfaces/cinema.interface';
 import { FormComponent } from './form/form.component';
@@ -98,6 +98,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       }
     };
     this.bsModalRef = this.modal.show(FormComponent, initialState);
+    this.modal.onHide.pipe(first()).subscribe((_: any) => {
+      this.getAllData();
+  })
+
     
   }
   private getAllData(): void {
