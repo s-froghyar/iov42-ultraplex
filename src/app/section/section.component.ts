@@ -17,6 +17,7 @@ export class SectionComponent implements OnInit {
   @Input() title!: string;
   @Input() cardType!: CardIcon;
   @Input() cardSize!: CardSize;
+  @Input() isEmpty = false;
   @Output() addEmitter: EventEmitter<CardIcon> = new EventEmitter<CardIcon>();
   createItem: ICard = createItemCard;
 

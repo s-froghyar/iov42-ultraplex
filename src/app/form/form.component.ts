@@ -25,19 +25,24 @@ export class FormComponent implements AfterViewInit {
   name = new FormControl('');
   runtime = new FormControl(0);
   seats = new FormControl(1);
-  selectedCinemaId = new FormControl(-1);
-  selectedScreenId = new FormControl(-1);
-  selectedMovieId = new FormControl(-1);
-  selectedScreeningId = new FormControl(-1);
-  selectedStartTime = new FormControl('');
+  selectedCinemaId!: FormControl;
+  selectedScreenId!: FormControl;
+  selectedMovieId!: FormControl;
+  selectedScreeningId!: FormControl;
+  selectedStartTime!: FormControl;
 
   selectedTab!: FormType;
+  isLoading = true;
   constructor(
     private readonly service: CinemaService,
-    private readonly modalRef: BsModalRef) {}
+    private readonly modalRef: BsModalRef) {
+      this.isLoading = true;
+    }
 
   ngAfterViewInit(): void {
     this.selectInitialTab();
+    this.initFormControls();
+    this.isLoading = false;
   }
 
   submit(): void {
@@ -86,8 +91,8 @@ export class FormComponent implements AfterViewInit {
         break;
     }
   }
-  updateScreensAndScreenings(): void {    
-    this.service.getScreensAndScreenings(this.selectedCinemaId.value).pipe(first())
+  updateScreensAndScreenings(cinemaId?: number | string): void {    
+    this.service.getScreensAndScreenings(cinemaId ?? this.selectedCinemaId.value).pipe(first())
       .subscribe(([cScreens, cScreenings]) => {
         this.screens = cScreens;
         this.screenings = cScreenings;
@@ -95,7 +100,6 @@ export class FormComponent implements AfterViewInit {
   }
   selectTab(tab: FormType): void {
     this.selectedTab = tab
-
   }
   private selectInitialTab(): void {
     const orderedTabs: FormType[] = ['cinema', 'screen', 'screening', 'movie', 'booking'];
@@ -104,5 +108,15 @@ export class FormComponent implements AfterViewInit {
       this.tabs.tabs[ind].active = true;
       this.selectedTab = orderedTabs[ind];
     }
+  }
+  private initFormControls(): void {
+    if (this.options?.cinemaId ?? false) {
+      this.updateScreensAndScreenings(this.options?.cinemaId);
+    } 
+    this.selectedCinemaId = new FormControl(this.options?.cinemaId ?? -1);
+    this.selectedScreenId = new FormControl(this.options?.screenId ?? -1);
+    this.selectedMovieId = new FormControl(this.options?.movieId ?? -1);
+    this.selectedScreeningId = new FormControl(this.options?.screeningId ?? -1);
+    this.selectedStartTime = new FormControl('');
   }
 }

@@ -1,5 +1,5 @@
-<div class="item-card" [class.secondary]="secondary" [class.active]="active"
-    [matTooltip]="title"
+<div class="item-card" [class.secondary]="secondary" [class.clickable]="!disabled"
+    [class.active]="active" [matTooltip]="title"
     matTooltipPosition="above">
     <img [src]="iconUrl">
     <div class="title">{{ title }}</div>

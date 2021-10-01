@@ -34,6 +34,11 @@
         position: relative;
         z-index: 2;
         text-align: center;
+        .message {
+            color: $baseWhite;
+            font-size: 20px;
+            align-self: flex-end;
+        }
     }
     .bg {
         position: absolute;

@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { finalize, first } from 'rxjs/operators';
 import { CardFactory } from './core/card-factory';
@@ -31,13 +31,16 @@ export class AppComponent implements OnInit, AfterViewInit {
   bookingCards: ICard[] = [];
 
 
-  selectedCinema!: ICard;
+  selectedCinemaId!: number | string;
+  selectedScreenId!: number | string;
+  selectedScreeningId!: number | string;
 
   isLoading = true;
   areScreensLoading = false;
   constructor(
     private readonly service: CinemaService,
-    private readonly modal: BsModalService  
+    private readonly modal: BsModalService,
+    private readonly cd: ChangeDetectorRef
   ) {}
   ngOnInit(): void {
     this.getAllData();
@@ -54,8 +57,14 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
   selectCinema(card: ICard): void {
     this.areScreensLoading = true;
-    this.selectedCinema = Object.assign({}, card);
-    this.service.getScreensAndScreenings(this.selectedCinema.id)
+
+    this.cinemaCards.forEach(card => card.selected = false);
+    const cardInd = this.cinemaCards.findIndex(c => c.id === card.id);
+    this.cinemaCards[cardInd].selected = true;
+    this.cinemaCards = Array.from(this.cinemaCards);
+
+    this.selectedCinemaId = card.id;
+    this.service.getScreensAndScreenings(card.id)
       .pipe(
         first(),
         finalize(() => this.areScreensLoading = false))
@@ -75,8 +84,23 @@ export class AppComponent implements OnInit, AfterViewInit {
         });
       })
   }
-  selectScreen(card: ICard): void {
+  selectScreen(c: ICard): void {
+    this.screenCards.forEach(card => card.selected = false);
+    const cardInd = this.screenCards.findIndex(card => card.id === c.id);
+    this.screenCards[cardInd].selected = true;
+    this.screenCards = Array.from(this.screenCards);
 
+    this.selectedScreenId = c.id;
+    
+  }
+  selectScreening(c: ICard): void {
+    this.screeningCards.forEach(card => card.selected = false);
+    const cardInd = this.screeningCards.findIndex(card => card.id === c.id);
+    this.screeningCards[cardInd].selected = true;
+    this.screeningCards = Array.from(this.screeningCards);
+
+    this.selectedScreeningId = c.id;
+    this.openCreateModal('booking');
   }
   selectMovie(card: ICard): void {
     const initialState: ModalOptions = {
@@ -91,7 +115,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       class: 'modal-lg',
       initialState: {
         options: {
-          createType: itemType
+          createType: itemType,
+          cinemaId: this.selectedCinemaId ?? null,
+          screenId: this.selectedScreenId ?? null,
+          screeningId: this.selectedScreeningId ?? null
         },
         cinemas: this.cinemaCards,
         movies: this.movieCards
@@ -108,13 +135,14 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.service.getInitialData()
       .pipe(
         first(),
-        finalize(() => this.isLoading = false)
+        finalize(() => {
+          this.isLoading = false;
+          this.cd.detectChanges();
+        })
       )
       .subscribe(([c, m, b]) => {
         const fac = new CardFactory(c, m, b);
-        [this.cinemaCards, this.movieCards, this.bookingCards] = fac.generateAllCards(); 
-        console.log([this.cinemaCards, this.movieCards, this.bookingCards]);
-               
+        [this.cinemaCards, this.movieCards, this.bookingCards] = fac.generateAllCards();               
       });
 
   }

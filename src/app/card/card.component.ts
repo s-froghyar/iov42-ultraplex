@@ -44,6 +44,7 @@ export class CardComponent implements OnInit {
   }
   @Input() secondary!: boolean;
   @Input() active!: boolean;
+  @Input() disabled = false;
   
 
   iconUrl = '';

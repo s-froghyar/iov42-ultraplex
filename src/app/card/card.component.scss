@@ -18,7 +18,6 @@
         padding: 1rem;
         border-radius: 35px;
     }
-    cursor: pointer;
 }
 
 .item-card {
@@ -33,18 +32,22 @@
     padding-bottom: 0.5rem;
     padding-right: 1rem;
     padding-left: 1rem;
-
+    &.clickable {
+        cursor: pointer;
+    }
     .bg {
         position: absolute;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(340deg, rgba(42,42,57,1) 0%, rgba(49,60,72,0.6684874633447129) 100%);;
+        top: -0.25rem;
+        left: -0.5rem;
+        width: calc(100% + 1rem);
+        height: calc(100% + 0.5rem);
+        background: $darkGradient;
         z-index: 1;
         opacity: 0; 
         transition: opacity 0.5s ease-in-out;
     }
-    &:hover {
-        .bg {
+    &:not(.secondary) {
+        &:hover .bg {
             opacity: 0.8;
         }
     }
@@ -68,10 +71,12 @@
         text-align: center;
     }
     &.active {
-        background: green;
+        background: $darkGradient;
     }
     &.secondary {
-        background-color: gray;
+        width: calc(100% + 1rem);
+        height: calc(100% + 0.5rem);
+        background: $darkGradient;
     }
     &.disabled {
         cursor: no-drop;

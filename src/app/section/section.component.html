@@ -10,6 +10,9 @@
               [size]="cardSize"
               (click)="addNew()"></app-card>
         <ng-content></ng-content>
+        <div class="message" *ngIf="isEmpty">
+            Sorry, this section has no available items. Please create one!
+        </div>
     </div>
     <div class="bg"></div>
 </div>

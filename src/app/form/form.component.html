@@ -1,126 +1,137 @@
 <div class="form-container">
     <tabset  [justified]="true" #staticTabs>
         <tab heading="Cinema" (selectTab)="selectTab('cinema')">
-            <div class="title">
-                <h3>Create a new cinema!</h3>
-            </div>
-            <div class="form-area">
-                <mat-form-field >
-                    <mat-label>Name</mat-label>
-                    <input matInput [formControl]="name" placeholder="Cinema name">
-                </mat-form-field>
-                <div>
-                    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <ng-container *ngIf="!isLoading">
+                <div class="title">
+                    <h3>Create a new cinema!</h3>
                 </div>
-            </div>
+                <div class="form-area">
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput [formControl]="name" placeholder="Cinema name">
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+
+            </ng-container>
         </tab>
         <tab heading="Screen" (selectTab)="selectTab('screen')">
-            <div class="title">
-                <h3>Create a new screen!</h3>
-            </div>
-            <div class="form-area">
-                <mat-form-field >
-                    <mat-label>Cinema</mat-label>
-                    <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of cinemas" [value]="c.id">
-                          {{c.title}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Name</mat-label>
-                    <input matInput [formControl]="name" placeholder="cinemaname">
-                </mat-form-field>
-                <div>
-                    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <ng-container *ngIf="!isLoading">
+                <div class="title">
+                    <h3>Create a new screen!</h3>
                 </div>
-            </div>
+                <div class="form-area">
+                    <mat-form-field >
+                        <mat-label>Cinema</mat-label>
+                        <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of cinemas" [value]="c.id">
+                              {{c.title}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput [formControl]="name" placeholder="cinemaname">
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+            </ng-container>
         </tab>
         <tab heading="Screening" (selectTab)="selectTab('screening')">
-            <div class="title">
-                <h3>Create a new screening!</h3>
-            </div>
-            <div class="form-area">
-                <mat-form-field >
-                    <mat-label>Cinema</mat-label>
-                    <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of cinemas" [value]="c.id">
-                          {{c.title}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Screen</mat-label>
-                    <mat-select [formControl]="selectedScreenId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of screens" [value]="c.id">
-                          {{c.name}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Movie</mat-label>
-                    <mat-select [formControl]="selectedMovieId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of movies" [value]="c.id">
-                          {{c.title}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field>
-                    <mat-label>Start time</mat-label>
-                    <input [formControl]="selectedStartTime" matInput type="datetime-local" placeholder="start date">
-                  </mat-form-field>
-                <div>
-                    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <ng-container *ngIf="!isLoading">
+                <div class="title">
+                    <h3>Create a new screening!</h3>
                 </div>
-            </div>
+                <div class="form-area">
+                    <mat-form-field >
+                        <mat-label>Cinema</mat-label>
+                        <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of cinemas" [value]="c.id">
+                              {{c.title}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Screen</mat-label>
+                        <mat-select [formControl]="selectedScreenId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of screens" [value]="c.id">
+                              {{c.name}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Movie</mat-label>
+                        <mat-select [formControl]="selectedMovieId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of movies" [value]="c.id">
+                              {{c.title}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field>
+                        <mat-label>Start time</mat-label>
+                        <input [formControl]="selectedStartTime" matInput type="datetime-local" placeholder="start date">
+                      </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+            </ng-container>
         </tab>
         <tab heading="Movie" (selectTab)="selectTab('movie')">
-            <div class="title">
-                <h3>Create a new movie!</h3>
-            </div>
-            <div class="form-area">
-                <mat-form-field >
-                    <mat-label>Name</mat-label>
-                    <input matInput [formControl]="name" placeholder="Movie name">
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Runtime (in minutes)</mat-label>
-                    <input matInput [formControl]="runtime" placeholder="Runtime" type="number">
-                </mat-form-field>
-                <div>
-                    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <ng-container *ngIf="!isLoading">
+                <div class="title">
+                    <h3>Create a new movie!</h3>
                 </div>
-            </div>
+                <div class="form-area">
+                    <mat-form-field >
+                        <mat-label>Name</mat-label>
+                        <input matInput [formControl]="name" placeholder="Movie name">
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Runtime (in minutes)</mat-label>
+                        <input matInput [formControl]="runtime" placeholder="Runtime" type="number">
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+            </ng-container>
         </tab>
         <tab heading="Booking" (selectTab)="selectTab('booking')">
-            <div class="title">
-                <h3>Create a new booking!</h3>
-            </div>
-            <div class="form-area">
-                <mat-form-field >
-                    <mat-label>Cinema</mat-label>
-                    <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of cinemas" [value]="c.id">
-                          {{c.title}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Screening</mat-label>
-                    <mat-select [formControl]="selectedScreeningId" (selectionChange)="updateScreensAndScreenings()">
-                        <mat-option *ngFor="let c of screenings" [value]="c.id">
-                          {{c.cinemaName}} - {{c.movie.name}} - {{c.screenName}} - {{c.start ?? "No start time available"}}
-                        </mat-option>
-                      </mat-select>
-                </mat-form-field>
-                <mat-form-field >
-                    <mat-label>Seats</mat-label>
-                    <input matInput [formControl]="seats" placeholder="Seats" type="number">
-                </mat-form-field>
-                <div>
-                    <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+            <ng-container *ngIf="!isLoading">
+                <div class="title">
+                    <h3>Create a new booking!</h3>
                 </div>
-            </div>
+                <div class="form-area">
+                    <mat-form-field >
+                        <mat-label>Cinema</mat-label>
+                        <mat-select [formControl]="selectedCinemaId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of cinemas" [value]="c.id">
+                              {{c.title}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Screening</mat-label>
+                        <mat-select [formControl]="selectedScreeningId" (selectionChange)="updateScreensAndScreenings()">
+                            <mat-option *ngFor="let c of screenings" [value]="c.id">
+                              {{c.cinemaName}} - {{c.movie.name}} - {{c.screenName}} - {{c.start ?? "No start time available"}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                    <mat-form-field >
+                        <mat-label>Seats</mat-label>
+                        <input matInput [formControl]="seats" placeholder="Seats" type="number">
+                    </mat-form-field>
+                    <div>
+                        <button mat-raised-button color="primary" (click)="submit()">Submit</button>
+                    </div>
+                </div>
+            </ng-container>
         </tab>
     </tabset>
 </div>

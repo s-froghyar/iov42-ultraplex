@@ -22,56 +22,58 @@
   <div class="main">
     <div class="cinema-section" #cinema>
       <app-section title="Cinemas ({{ cinemaCards.length }})" cardSize="large"
-        [cardType]="'cinema'" (addEmitter)="openCreateModal($event)">
+        [cardType]="'cinema'" (addEmitter)="openCreateModal($event)" [isEmpty]="cinemaCards.length === 0">
         <app-card *ngFor="let card of cinemaCards"
           [title]="card.title"
           [icon]="card.icon"
+          [active]="card.selected"
           (click)="selectCinema(card)"
           [size]="card.size"></app-card>
       </app-section>
       <div class="spinner" *ngIf="areScreensLoading">
         <img src="../assets/spin.svg" alt="">
       </div>
-      <div class="cinema-specific" *ngIf="selectedCinema && !areScreensLoading">
+      <div class="cinema-specific" *ngIf="selectedCinemaId !== undefined && !areScreensLoading">
         <app-section title="Screens ({{ screenCards.length }})" [cardType]="'screen'" cardSize="medium"
-        (addEmitter)="openCreateModal($event)" *ngIf="screenCards.length > 0">
+        (addEmitter)="openCreateModal($event)" [isEmpty]="screenCards.length === 0">
           <app-card *ngFor="let card of screenCards"
             [title]="card.title"
             [icon]="card.icon"
+            [active]="card.selected"
             (click)="selectScreen(card)"
             [size]="card.size"></app-card>
         </app-section>
         <app-section title="Screenings  ({{ screeningCards.length }})" [cardType]="'screening'" cardSize="medium"
-        (addEmitter)="openCreateModal($event)" *ngIf="screenCards.length > 0  && !areScreensLoading">
+        (addEmitter)="openCreateModal($event)" *ngIf="!areScreensLoading"
+        [isEmpty]="screeningCards.length === 0">
           <app-card *ngFor="let card of screeningCards"
             [title]="card.title"
             [icon]="card.icon"
-            (click)="selectScreen(card)"
+            (click)="selectScreening(card)"
+            [active]="card.selected"
             [size]="card.size"></app-card>
         </app-section>
-      </div>
-      <div class="message" *ngIf="selectedCinema && screenCards.length === 0">
-        Sorry, the selected cinema has no available screens. Please choose another cinema!
       </div>
     </div>
     <div class="movie-section" #movie>
       <app-section title="Movies ({{ movieCards.length }})" cardSize="large"
-        [cardType]="'movie'" (addEmitter)="openCreateModal($event)">
+        [cardType]="'movie'" (addEmitter)="openCreateModal($event)" [isEmpty]="movieCards.length === 0">
         <app-card *ngFor="let card of movieCards"
           [title]="card.title"
           [icon]="card.icon"
-          (click)="selectMovie(card)"
           [size]="card.size"
+          [disabled]="true"
 ></app-card>
       </app-section>
     </div>
     <div class="booking-section" #booking>
       <app-section title="Bookings ({{ bookingCards.length }})" cardSize="large"
-        [cardType]="'booking'" (addEmitter)="openCreateModal($event)">
+        [cardType]="'booking'" (addEmitter)="openCreateModal($event)" [isEmpty]="bookingCards.length === 0">
         <app-card *ngFor="let card of bookingCards"
           [title]="card.title"
           [icon]="card.icon"
-          [size]="card.size"></app-card>
+          [size]="card.size"
+          [disabled]="true"></app-card>
       </app-section>
     </div>
   </div>
