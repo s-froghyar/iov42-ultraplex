@@ -6,8 +6,8 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "jest",
-    "test:coverage": "jest --coverage"
+    "test": "jest --silent",
+    "test:coverage": "jest --silent --coverage"
   },
   "private": true,
   "dependencies": {

@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CardIcon, CardSize, ICard } from '../core/interfaces/card.interface';
+
 export const createItemCard: ICard = {
   title: 'Add new',
   icon: 'add',
@@ -13,7 +14,7 @@ export const createItemCard: ICard = {
   templateUrl: './section.component.html',
   styleUrls: ['./section.component.scss']
 })
-export class SectionComponent implements OnInit {
+export class SectionComponent {
   @Input() title!: string;
   @Input() cardType!: CardIcon;
   @Input() cardSize!: CardSize;
@@ -25,8 +26,6 @@ export class SectionComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void {
-  }
   addNew(): void {
     this.addEmitter.emit(this.cardType);
   }

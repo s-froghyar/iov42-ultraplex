@@ -11,6 +11,8 @@ import { ICard } from '../core/interfaces/card.interface';
 })
 export class CinemaService {
   baseUrl = environment.apiUrl;
+
+
   constructor(private readonly http: HttpClient) {}
   
   getInitialData(): Observable<[Cinema[], Movie[], Booking[]]> {

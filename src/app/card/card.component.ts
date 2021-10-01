@@ -1,12 +1,12 @@
-import { Component, HostBinding, Input, OnInit, Output } from '@angular/core';
-import { CardIcon, CardSize } from '../core/interfaces/card.interface';
+import { Component, HostBinding, Input } from '@angular/core';
+import { CardIcon } from '../core/interfaces/card.interface';
 
 @Component({
   selector: 'app-card',
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.scss']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
   @HostBinding('class.small') isSmallClass: boolean = false;
   @HostBinding('class.medium') isMediumClass: boolean = false;
   @HostBinding('class.large') isLargeClass: boolean = false;
@@ -51,9 +51,4 @@ export class CardComponent implements OnInit {
   private _size: string = 'medium';
   private _title: string = '';
   constructor() { }
-
-  ngOnInit(): void {
-
-  }
-
 }
