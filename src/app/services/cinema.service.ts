@@ -4,7 +4,6 @@ import { forkJoin, Observable, of } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { catchError, first, map } from 'rxjs/operators';
 import { Booking, Cinema, CinemaScreen, CinemaScreening, Movie, ResponseDto } from '../core/interfaces/cinema.interface';
-import { ICard } from '../core/interfaces/card.interface';
 
 @Injectable({
   providedIn: 'root'

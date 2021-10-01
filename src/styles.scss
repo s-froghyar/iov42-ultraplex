@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100&display=swap');
+@import '_colors';
 
 html, body {
     margin: 0;
@@ -12,12 +13,13 @@ html, body {
 .cdk-global-overlay-wrapper, .cdk-overlay-container {
     z-index: 99999 !important;
  }
+ .custom-tabs a {
+    color: $basePurple;
+    &:hover {
+        color: $darkerPurple;
+    }
+}
 
-/* Importing Bootstrap SCSS file. */
 @import "~bootstrap/scss/bootstrap";
 
-/* Importing Datepicker SCSS file. */
-// @import "~ngx-bootstrap/datepicker/bs-datepicker";
-
-/* Importing Datepicker SCSS file. */
 @import "~ngx-bootstrap/datepicker/bs-datepicker";

@@ -2,7 +2,6 @@
 
 :host {
     display: inline-block;
-    // margin: 1rem;
     vertical-align: middle;
     &.small {
         width: 70px;
@@ -77,6 +76,7 @@
         width: calc(100% + 1rem);
         height: calc(100% + 0.5rem);
         background: $darkGradient;
+        color: $strongWhite;
     }
     &.disabled {
         cursor: no-drop;

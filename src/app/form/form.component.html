@@ -1,6 +1,6 @@
 <div class="form-container">
     <tabset  [justified]="true" #staticTabs>
-        <tab heading="Cinema" (selectTab)="selectTab('cinema')">
+        <tab heading="Cinema" (selectTab)="selectTab('cinema')" customClass="custom-tabs">
             <ng-container *ngIf="!isLoading">
                 <div class="title">
                     <h3>Create a new cinema!</h3>
@@ -17,7 +17,7 @@
 
             </ng-container>
         </tab>
-        <tab heading="Screen" (selectTab)="selectTab('screen')">
+        <tab heading="Screen" (selectTab)="selectTab('screen')" customClass="custom-tabs">
             <ng-container *ngIf="!isLoading">
                 <div class="title">
                     <h3>Create a new screen!</h3>
@@ -41,7 +41,7 @@
                 </div>
             </ng-container>
         </tab>
-        <tab heading="Screening" (selectTab)="selectTab('screening')">
+        <tab heading="Screening" (selectTab)="selectTab('screening')" customClass="custom-tabs">
             <ng-container *ngIf="!isLoading">
                 <div class="title">
                     <h3>Create a new screening!</h3>
@@ -81,7 +81,7 @@
                 </div>
             </ng-container>
         </tab>
-        <tab heading="Movie" (selectTab)="selectTab('movie')">
+        <tab heading="Movie" (selectTab)="selectTab('movie')" customClass="custom-tabs">
             <ng-container *ngIf="!isLoading">
                 <div class="title">
                     <h3>Create a new movie!</h3>
@@ -101,7 +101,7 @@
                 </div>
             </ng-container>
         </tab>
-        <tab heading="Booking" (selectTab)="selectTab('booking')">
+        <tab heading="Booking" (selectTab)="selectTab('booking')" customClass="custom-tabs">
             <ng-container *ngIf="!isLoading">
                 <div class="title">
                     <h3>Create a new booking!</h3>

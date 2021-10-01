@@ -14,7 +14,7 @@
         left: 0;
         z-index: -1;
         background: rgb(2,0,36);
-        background: linear-gradient(333deg, rgba(2,0,36,1) 0%, rgba(42,42,57,1) 18%, rgba(115,107,139,1) 100%);        
+        background: $mainBackgroundGradient;        
     }
     .side-bar {
         position: fixed;
@@ -26,9 +26,9 @@
         flex-direction: column;
 
         h1 {
-            color: $baseWhite;
+            color: $strongWhite;
 
-            border-bottom: 1px solid #c3c3c3;
+            border-bottom: 1px solid $baseWhite;
         }
         .nav {
             height: 80vh;
@@ -48,13 +48,14 @@
                     width: 50px;
                 }
                 span {
-                    color: white;
+                    color: $baseWhite;
                     font-size: 25px;
                     width: 70%;
                     text-align: center;
                 }
                 &.active span {
                     text-decoration: underline;
+                    color: $strongWhite;
                 }
             }
         }
@@ -77,7 +78,6 @@
             width: 100%;
         }
         .cinema-section {
-
             .cinema-specific {
                 display: flex;
                 & > * {width: 100%;}
